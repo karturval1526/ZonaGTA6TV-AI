@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090d">
+<meta name="description" content="ZonaGTA6TV Free AI Content Factory">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon.svg">
+<title>ZonaGTA6TV • Free AI Factory</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg"></div>
+<header class="top">
+  <div>
+    <div class="brand">ZONA<span>GTA6</span>TV</div>
+    <div class="sub">FREE AI CONTENT FACTORY</div>
+  </div>
+  <div class="topActions"><span id="deviceBadge" class="deviceBadge">ANDROID</span><button id="installBtn" class="ghost hidden">📲 Instalar app</button></div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="badge">⚡ 100% LOCAL • $0 API • SIN CLAVES</div>
+  <h1>Tu fábrica de contenido<br><span>GTA 6</span> desde el teléfono.</h1>
+  <p>Genera guiones, hooks, títulos, descripciones, hashtags, escenas y subtítulos usando un modelo abierto ejecutado en tu propio navegador, con CPU/WebAssembly, sin GPU.</p>
+  <div class="actions">
+    <button id="loadBtn" class="primary">🚀 Cargar IA gratuita</button>
+    <button id="demoBtn" class="secondary">Ver modo demo</button>
+  </div>
+  <div class="progressWrap"><div id="progress"></div></div>
+  <div id="status" class="status">IA no cargada. La primera carga puede tardar y descargar el modelo.</div><div id="deviceStatus" class="deviceStatus"></div>
+</section>
+
+
+<section class="panel radarPanel" id="newsRadar">
+  <div class="panelTitle">🛰️ NEWS RADAR GTA 6 — V14 SMART</div>
+  <p class="muted">Busca titulares recientes desde feeds públicos. Las filtraciones y rumores se etiquetan como no confirmados; revisa siempre la fuente antes de publicar.</p>
+  <div class="row">
+    <label>Ventana de búsqueda
+      <select id="radarHours"><option value="24">Últimas 24 horas</option><option value="72" selected>Últimos 3 días</option><option value="168">Últimos 7 días</option></select>
+    </label>
+    <div class="actions compact radarActions"><button id="refreshRadarBtn" class="primary">🔎 BUSCAR AHORA</button><button id="autoRadarBtn" class="secondary">🤖 TOMAR LA MÁS RELEVANTE</button><button id="smartBatchBtn" class="secondary">🧠 COLA INTELIGENTE</button><select id="smartBatchCount"><option value="3">3 historias</option><option value="5" selected>5 historias</option><option value="10">10 historias</option></select></div>
+  </div>
+  <div id="radarStatus" class="status">Pulsa “Buscar ahora” para consultar noticias.</div>
+  <div id="radarResults" class="newsGrid"></div>
+</section>
+
+<section class="grid">
+  <div class="panel" id="generator">
+    <div class="panelTitle">🎬 Generador inteligente</div>
+    <label>Tema
+      <textarea id="topic" placeholder="Ej: GTA 6, nuevos detalles de Vice City, vehículos, personajes, mapa..."></textarea>
+    </label>
+    <div class="row">
+      <label>Formato
+        <select id="format">
+          <option value="short">Short / Reel / TikTok</option>
+          <option value="long">Video largo</option>
+        </select>
+      </label>
+      <label>Duración
+        <select id="duration">
+          <option>30 segundos</option>
+          <option>45 segundos</option>
+          <option>60 segundos</option>
+          <option>90 segundos</option>
+          <option>3 minutos</option>
+          <option>5 minutos</option>
+          <option>8 minutos</option>
+        </select>
+      </label>
+    </div>
+    <div class="row">
+      <label>Tipo
+        <select id="type">
+          <option>Noticia</option>
+          <option>Curiosidad</option>
+          <option>Top</option>
+          <option>Teoría</option>
+          <option>Guía</option>
+          <option>Rumor / filtración</option>
+          <option>Viral</option>
+        </select>
+      </label>
+      <label>Tono
+        <select id="tone">
+          <option>Impactante</option>
+          <option>Misterioso</option>
+          <option>Informativo</option>
+          <option>Rápido y energético</option>
+          <option>Documental</option>
+        </select>
+      </label>
+    </div>
+    <label>Instrucciones adicionales
+      <input id="extra" placeholder="Ej: hook muy fuerte, CTA a suscribirse, lenguaje colombiano...">
+    </label>
+    <button id="generateBtn" class="primary wide">✨ CREAR CONTENIDO</button>
+  </div>
+
+  <div class="panel">
+    <div class="panelTitle">🧠 Estado del modelo</div>
+    <div class="modelCard">
+      <div class="modelName">SmolLM2 135M</div>
+      <div class="pill">OPEN MODEL</div>
+      <p>Modelo ultraligero optimizado para ejecución local en CPU/WebAssembly.</p>
+      <div class="meter"><span id="modelMeter"></span></div>
+      <small id="modelText">Esperando carga...</small>
+    </div>
+    <div class="featureList">
+      <div>✓ Sin OpenAI</div><div>✓ Sin API key</div><div>✓ Sin OAuth</div><div>✓ Tus proyectos quedan en el navegador</div><div>✓ Funciona como PWA</div>
+    </div>
+  </div>
+</section>
+
+<section id="resultPanel" class="panel result hidden">
+  <div class="resultHead">
+    <div>
+      <div class="panelTitle">🔥 Contenido generado</div>
+      <div id="resultMeta" class="muted"></div>
+    </div>
+    <div class="actions compact">
+      <button id="copyBtn" class="secondary">Copiar</button>
+      <button id="exportBtn" class="primary">Exportar ZIP</button>
+    </div>
+  </div>
+  <div class="tabs">
+    <button data-tab="script" class="active">Guion</button>
+    <button data-tab="meta">SEO</button>
+    <button data-tab="srt">SRT</button>
+    <button data-tab="story">Storyboard</button>
+  </div>
+  <div id="tab-script" class="tabContent active"><textarea id="scriptOut"></textarea></div>
+  <div id="tab-meta" class="tabContent"><pre id="metaOut"></pre></div>
+  <div id="tab-srt" class="tabContent"><pre id="srtOut"></pre></div>
+  <div id="tab-story" class="tabContent"><div id="storyOut" class="story"></div></div>
+</section>
+
+
+
+
+<section class="panel factoryPanel">
+<div class="latamVoiceNote">🎙️ <strong>Voz: Español Latino</strong> — energía natural y sutil, pensada para Shorts.</div>
+  <div class="panelTitle">🏭 FÁBRICA AUTOMÁTICA DE SHORTS</div>
+  <p class="muted">Escribe una idea y produce el paquete completo: guion → escenas → imágenes IA → voz → subtítulos → video → ZIP.</p>
+  <label>Idea / noticia / tema
+    <textarea id="factoryTopic" rows="3" placeholder="Ej.: ¿Qué sabemos de GTA 6 esta semana?"></textarea>
+  </label>
+  <div class="row">
+    <label>Duración
+      <select id="factoryDuration">
+        <option value="30">30 segundos</option>
+        <option value="45" selected>45 segundos</option>
+        <option value="60">60 segundos</option>
+        <option value="90">90 segundos</option>
+      </select>
+    </label>
+    <label>Imágenes
+      <select id="factoryImages">
+        <option value="4">4</option><option value="6" selected>6</option><option value="8">8</option>
+      </select>
+    </label>
+  </div>
+  <div class="actions">
+    <button id="factoryStartBtn" class="primary factoryBtn">🚀 CREAR SHORT COMPLETO</button>
+    <button id="factoryStopBtn" class="secondary" disabled>⏹ DETENER</button>
+  </div>
+  <div class="factorySteps">
+    <div id="stepScript">1. Guion</div><div id="stepImages">2. Imágenes</div>
+    <div id="stepVoice">3. Voz</div><div id="stepVideo">4. Video</div><div id="stepZip">5. Paquete</div>
+  </div>
+  <div class="progressWrap"><div id="factoryProgress"></div></div>
+  <div id="factoryStatus" class="status">Listo para producir.</div>
+  <div id="factoryResult" class="factoryResult"></div>
+</section>
+
+<section class="panel autoPanel">
+  <div class="panelTitle">🤖 PRODUCCIÓN MASIVA AUTOMÁTICA</div>
+  <p class="muted">Pega varios temas, uno por línea. La fábrica los procesa sola, en orden: guion → imágenes → voz → subtítulos → video → ZIP.</p>
+  <label>Temas / noticias (uno por línea)
+    <textarea id="batchTopics" rows="7" placeholder="GTA 6: nuevo detalle del mapa
+GTA 6: vehículos que podrían aparecer
+GTA 6: personaje que todos esperan
+GTA 6: curiosidad que pocos conocen"></textarea>
+  </label>
+  <div class="row">
+    <label>Formato
+      <select id="batchFormat"><option value="short" selected>Short / Reel / TikTok</option><option value="long">Video largo</option></select>
+    </label>
+    <label>Duración
+      <select id="batchDuration">
+        <option value="45" selected>45 segundos</option><option value="60">60 segundos</option><option value="90">90 segundos</option>
+        <option value="180">3 minutos</option><option value="300">5 minutos</option><option value="480">8 minutos</option>
+      </select>
+    </label>
+    <label>Imágenes
+      <select id="batchImages"><option value="4">4</option><option value="6" selected>6</option><option value="8">8</option></select>
+    </label>
+  </div>
+  <div class="actions">
+    <button id="batchStartBtn" class="primary wide">🚀 INICIAR PRODUCCIÓN AUTOMÁTICA</button>
+    <button id="batchStopBtn" class="secondary" disabled>⏹ DETENER COLA</button>
+  </div>
+  <div class="progressWrap"><div id="batchProgress"></div></div>
+  <div id="batchStatus" class="status">Esperando temas…</div>
+  <div id="batchResult" class="factoryResult"></div>
+</section>
+
+<section class="panel autoPilotPanel">
+  <div class="panelTitle">🧠🤖 AUTOPILOT — IDEAS + PRODUCCIÓN</div>
+  <p class="muted">La fábrica puede crear automáticamente una lista de ideas de GTA 6 y enviarlas directamente a la cola. No necesita que escribas los temas uno por uno.</p>
+  <div class="row">
+    <label>Cantidad
+      <select id="pilotCount"><option value="5">5 videos</option><option value="10" selected>10 videos</option><option value="20">20 videos</option></select>
+    </label>
+    <label>Modo
+      <select id="pilotMode"><option value="short" selected>Solo Shorts</option><option value="long">Solo videos largos</option><option value="mix">Mezcla Shorts + largos</option></select>
+    </label>
+  </div>
+  <div class="row">
+    <label>Enfoque
+      <select id="pilotFocus"><option value="viral" selected>Viral / curiosidades</option><option value="characters">Personajes</option><option value="map">Mapa / Vice City</option><option value="vehicles">Vehículos / gameplay</option><option value="features">Funciones / detalles</option></select>
+    </label>
+    <label>Voz
+      <select id="pilotVoice"><option value="em_alex" selected>Alex — latino masculino</option><option value="ef_dora">Dora — latina femenina</option><option value="em_santa">Santa — latino masculino</option></select>
+    </label>
+  </div>
+  <div class="actions">
+    <button id="pilotIdeasBtn" class="secondary">💡 GENERAR IDEAS AUTOMÁTICAS</button>
+    <button id="pilotStartBtn" class="primary">🤖 INICIAR AUTOPILOT</button>
+  </div>
+  <div id="pilotStatus" class="status">Listo. Genera ideas o inicia Autopilot.</div>
+  <div id="pilotIdeas" class="factoryResult"></div>
+</section>
+
+<section class="panel voicePanel">
+  <div class="panelTitle">🎙️ LATINO VIRAL — Voz IA</div>
+  <p class="muted">Voz IA en español con Kokoro v1.0. Generación local en el navegador; sin API de voz ni clave. Diseñada para narración de Shorts y uso comercial sujeto a los términos de la licencia.</p>
+  <div class="row">
+    <label>Perfil
+      <select id="ttsVoice">
+        <option value="em_alex" selected>🇨🇴/🌎 Latino masculino — Alex (principal)</option>
+        <option value="ef_dora">🌎 Latina femenina — Dora</option>
+        <option value="em_santa">🌎 Latino masculino — Santa</option>
+      </select>
+    </label>
+    <label>Ritmo viral
+      <select id="ttsStyle">
+        <option value="1.06" selected>🔥 Viral — energético natural</option>
+        <option value="1.10">⚡ Más dinámico</option>
+        <option value="1.00">🎙️ Natural</option>
+      </select>
+    </label>
+  </div>
+  <div class="actions compact">
+    <button id="generateVoiceBtn" class="primary">🎙️ GENERAR VOZ LATINA</button>
+    <button id="playVoiceBtn" disabled>▶️ Escuchar</button>
+    <button id="downloadVoiceBtn" disabled>⬇️ WAV</button>
+  </div>
+  <div class="progressWrap"><div id="voiceProgress"></div></div>
+  <div id="voiceStatus" class="status">Voz latina lista para generar.</div>
+  <audio id="voicePreview" controls></audio>
+  <div class="notice"><strong>Licencia TTS:</strong> Kokoro-82M v1.0 y sus voces oficiales están publicados bajo Apache-2.0. Esta licencia permite uso comercial, sujeto a sus términos y a las licencias de las dependencias. La licencia de la voz no garantiza por sí sola la monetización en YouTube/TikTok.</div>
+</section>
+
+<section class="panel aiImagePanel">
+  <div class="panelTitle">🖼️ Generador de imágenes IA</div>
+  <p class="muted">Crea imágenes cinematográficas verticales para cada escena y úsalas automáticamente en el video. La generación se realiza mediante un servicio externo de IA; no necesitas poner una API key en GitHub.</p>
+  <div class="row">
+    <label>Motor de imagen
+      <select id="imageModel">
+        <option value="zimage">Z-Image Turbo — rápido</option>
+        <option value="flux">FLUX — calidad/estilo</option>
+      </select>
+    </label>
+    <label>Escenas a generar
+      <select id="imageCount">
+        <option value="3">3 imágenes</option>
+        <option value="4" selected>4 imágenes</option>
+        <option value="5">5 imágenes</option>
+        <option value="6">6 imágenes</option>
+      </select>
+    </label>
+  </div>
+  <label>Estilo visual
+    <select id="imageStyle">
+      <option value="cinematic">Cinematográfico AAA, realista, iluminación dramática</option>
+      <option value="trailer">Tráiler de videojuego, ultra detallado, alto contraste</option>
+      <option value="neon">Vice City nocturna, neón, lluvia, estética retro-futurista</option>
+      <option value="day">Miami/Vice City de día, tropical, realista</option>
+    </select>
+  </label>
+  <div class="actions compact">
+    <button id="generateImagesBtn" class="primary">✨ GENERAR IMÁGENES IA</button>
+    <button id="clearImagesBtn" class="secondary">Limpiar</button>
+  </div>
+  <div class="progressWrap"><div id="imageProgress"></div></div>
+  <div id="imageStatus" class="status">Genera primero el contenido para crear imágenes basadas en sus escenas.</div>
+  <div id="aiGallery" class="aiGallery"></div>
+</section>
+
+<section class="panel videoPanel">
+  <div class="panelTitle">🎥 Estudio de video</div>
+  <p class="muted">Ahora sí: convierte el contenido generado en un video vertical desde el teléfono. El render se hace en el navegador, sin API de video.</p>
+  <div class="videoControls">
+    <label>Imágenes opcionales
+      <input id="imageInput" type="file" accept="image/*" multiple>
+      <small>Puedes seleccionar hasta 6 imágenes de GTA 6 o tus propias imágenes.</small>
+    </label>
+    <div class="row">
+      <label>Calidad
+        <select id="videoQuality">
+          <option value="720">720 × 1280 — recomendado para Android</option>
+          <option value="1080">1080 × 1920 — más pesado</option>
+        </select>
+      </label>
+      <label>FPS
+        <select id="videoFps">
+          <option value="24">24 FPS</option>
+          <option value="30" selected>30 FPS</option>
+        </select>
+      </label>
+    </div>
+    <div class="actions compact">
+      <button id="renderVideoBtn" class="primary">🎬 GENERAR VIDEO</button>
+      <button id="stopVideoBtn" class="secondary" disabled>⏹ Detener</button>
+    </div>
+    <div class="progressWrap"><div id="videoProgress"></div></div>
+    <div id="videoStatus" class="status">Genera primero el contenido. Después pulsa “Generar video”.</div>
+  </div>
+  <video id="videoPreview" class="videoPreview" controls playsinline></video>
+  <div class="actions compact">
+    <button id="downloadVideoBtn" class="primary" disabled>⬇️ DESCARGAR VIDEO</button>
+  </div>
+  <small class="muted">En Chrome Android normalmente se exporta como WebM. Si el navegador ofrece MP4 nativo, se usará MP4. No depende de GPU.</small>
+</section>
+
+<section class="panel publishPanel" id="publishPanel">
+  <div class="panelTitle">🚀 CENTRO “LISTO PARA PUBLICAR” — V14</div>
+  <p class="muted">Prepara el video, título, descripción, hashtags, subtítulos, fuentes y checklist de publicación. La subida a YouTube requiere autorización de tu propia cuenta mediante YouTube Studio/API; esta versión no sube sin tu autorización.</p>
+  <div class="actions compact"><button id="publishPackBtn" class="primary">📦 CREAR PAQUETE DE PUBLICACIÓN</button><button id="publishChecklistBtn" class="secondary">✅ VER CHECKLIST</button></div>
+  <div id="publishStatus" class="status">Genera un contenido y luego crea el paquete.</div>
+  <div id="publishChecklist" class="factoryResult hidden"></div>
+</section>
+
+<section class="panel" id="batch">
+  <div class="panelTitle">🧠 SMART BATCH — SHORT + LARGO</div>
+  <p class="muted">Toma varias historias del radar, evita duplicados y crea una cola de producción.</p>
+</section>
+
+<section class="panel">
+  <div class="panelTitle">📚 Biblioteca local</div>
+  <div id="library" class="library"></div>
+</section>
+</main>
+
+<footer>ZonaGTA6TV AI Autopilot Factory • Sin API de pago • Hecho para móvil</footer>
+
+<script src="app.js?v=20260924-V14"></script><script src="news-radar.js?v=20260924-V14"></script>
+</body>
+</html>
