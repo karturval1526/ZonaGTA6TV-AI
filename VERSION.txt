@@ -1,7 +1,0 @@
-ZonaGTA6TV V15.1 — ONE-CLICK PUBLISH READY — Mobile Render Stability Patch
-2026-09-24
-- Render Canvas/MediaRecorder optimizado para Android.
-- Por defecto: 540p / 24 FPS.
-- Menos operaciones por frame y bitrate adaptativo.
-- Manejo de errores y cierre limpio de AudioContext/MediaStream.
-- Mantiene generación de voz, subtítulos, imágenes y ZIP.
