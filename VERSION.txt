@@ -1,5 +1,0 @@
-ZonaGTA6TV V15 — ONE-CLICK PUBLISH READY
-Base: V14 Smart News Factory
-Features: one-click same-news Short + long, MP4 conversion fallback, embedded narration, synchronized subtitles, AI scenes, SEO metadata, pinned comment, sources, organized ZIP.
-Target: Chrome Android / desktop.
-Actual YouTube upload is not automatic; user authorization/action in YouTube Studio/API is required.
