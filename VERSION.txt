@@ -1,0 +1,5 @@
+ZonaGTA6TV CPU SIN GPU v3
+Corrección: eliminado acceso a elemento DOM inexistente gpuStatus.
+Corrección: no se borra Cache Storage para conservar el modelo Transformers.js.
+Backend: Transformers.js + ONNX Runtime WebAssembly/CPU.
+Modelo: onnx-community/SmolLM2-135M-Instruct-ONNX.

@@ -1,0 +1,25 @@
+{
+  "name": "ZonaGTA6TV AI Factory",
+  "short_name": "GTA6 AI",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06080c",
+  "theme_color": "#ff3f5f",
+  "description": "Fábrica de contenido GTA 6 con IA local y gratuita.",
+  "categories": [
+    "productivity",
+    "entertainment",
+    "video"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
