@@ -1,0 +1,5 @@
+ZonaGTA6TV CPU-SinGPU v2
+2026-09-24
+Modelo: onnx-community/SmolLM2-135M-Instruct-ONNX
+Motor: Transformers.js 3.8.1 / WASM CPU
+Sin WebGPU / Sin OpenAI / Sin API key / Sin YouTube OAuth
