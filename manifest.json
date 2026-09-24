@@ -1,0 +1,25 @@
+{
+  "name": "ZonaGTA6TV V15 — One-Click Publish Ready",
+  "short_name": "ZonaGTA6TV V15",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06080c",
+  "theme_color": "#ff3f5f",
+  "description": "Noticias GTA 6 a Short + video largo listos para publicar.",
+  "categories": [
+    "productivity",
+    "entertainment",
+    "video"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
